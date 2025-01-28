@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/Users/rongjiang/ada/Ada projects/pick-me-up-backend/venv/bin/python3" "$0" "$@"
+'''exec' "/Users/rongjiang/ada/Ada projects/pick-me-up/pick-me-up-backend/venv/bin/python3.9" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re
