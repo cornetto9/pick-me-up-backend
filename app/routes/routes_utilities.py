@@ -21,3 +21,8 @@ def get_models_with_filters(cls, filters):
         query = query.where(getattr(cls, key) == value)
     models = db.session.execute(query).scalars().all()
     return make_response({f"{cls.__name__.lower()}": [model.to_dict() for model in models]}, 200)
+
+def validate_user_data(data):
+    if 'email' not in data or 'password' not in data:
+        response = {"details": "Invalid data"}
+        abort(make_response(response, 400))

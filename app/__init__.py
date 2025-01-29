@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import os
 from .db import db, migrate
 from .routes.user_routes import bp as user_bp
+from .routes.auth_routes import auth_bp
 
 
 def create_app(config=None):
@@ -30,5 +31,6 @@ def create_app(config=None):
     migrate.init_app(app, db)
 
     app.register_blueprint(user_bp)
+    app.register_blueprint(auth_bp)
 
     return app
