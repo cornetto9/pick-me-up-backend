@@ -4,10 +4,16 @@ from flask_bcrypt import generate_password_hash, check_password_hash
 
 
 class User(db.Model):
+    __tablename__ = 'users'  
+
     user_id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     email: Mapped[str] = mapped_column(unique=True, nullable=False)
     username: Mapped[str] = mapped_column(unique=True, nullable=False)
     password_hash: Mapped[str] = mapped_column(nullable=False)
+
+    items = relationship('Item', back_populates='user') # Define the relationship
+    comments = relationship('Comment', back_populates='user')  # Define the relationship
+
 
     @property
     def password(self):

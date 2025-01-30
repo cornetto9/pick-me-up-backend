@@ -5,6 +5,8 @@ import os
 from .db import db, migrate
 from .routes.user_routes import bp as user_bp
 from .routes.auth_routes import auth_bp
+from .routes.item_routes import bp as item_bp 
+from .routes.comment_routes import bp as comment_bp
 
 
 def create_app(config=None):
@@ -32,5 +34,8 @@ def create_app(config=None):
 
     app.register_blueprint(user_bp)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(item_bp)  
+    app.register_blueprint(comment_bp)# Register the item blueprint
+
 
     return app
