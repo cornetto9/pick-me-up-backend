@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from app.models.comment import Comment
+from app.models.user import User
 from .routes_utilities import create_model, get_models_with_filters
 from app.db import db
 
@@ -43,3 +44,9 @@ def delete_comment(comment_id):
         db.session.commit()
         return jsonify({"message": "Comment deleted successfully"}), 200
     return jsonify({"error": "Comment not found or user not authorized"}), 404
+
+# Endpoint to get all comments from a specific user
+@bp.get("/user/<int:user_id>")
+def get_user_comments(user_id):
+    comments = Comment.query.filter_by(user_id=user_id).all()
+    return jsonify([comment.to_dict() for comment in comments]), 200
