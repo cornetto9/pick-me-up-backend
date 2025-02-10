@@ -50,3 +50,16 @@ def delete_comment(comment_id):
 def get_user_comments(user_id):
     comments = Comment.query.filter_by(user_id=user_id).all()
     return jsonify([comment.to_dict() for comment in comments]), 200
+
+# Endpoint to delete all comments from a specific user
+@bp.delete("/user/<int:user_id>")
+def delete_user_comments(user_id):
+    request_user_id = request.args.get("user_id")
+    if request_user_id is None or int(request_user_id) != user_id:
+        return jsonify({"error": "User ID is required or not authorized"}), 400
+
+    comments = Comment.query.filter_by(user_id=user_id).all()
+    for comment in comments:
+        db.session.delete(comment)
+    db.session.commit()
+    return jsonify({"message": "All comments from user deleted successfully"}), 200
